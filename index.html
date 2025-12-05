@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Τριχοκοπτειον - Barber Shop">
+    <title>Τριχοκοπτειον | Barber Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 69, 19, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(101, 67, 33, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.03) 2px,
+                    rgba(139, 69, 19, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            flex: 1;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 40px 25px;
+            background: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 10, 5, 0.95) 100%);
+            border-radius: 0;
+            margin-bottom: 30px;
+            backdrop-filter: blur(20px);
+            border: 3px solid #8B4513;
+            border-top: 4px solid #CD853F;
+            position: relative;
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.3),
+                inset 0 0 20px rgba(0, 0, 0, 0.5),
+                0 10px 40px rgba(0, 0, 0, 0.8);
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8B4513, #CD853F, #8B4513, #654321);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: borderGlow 3s ease infinite;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #CD853F;
+            text-shadow: 
+                0 0 10px rgba(205, 133, 63, 0.5),
+                0 0 20px rgba(205, 133, 63, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.8),
+                2px 2px 4px rgba(0, 0, 0, 1);
+            margin-bottom: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #CD853F, transparent);
+            box-shadow: 0 0 10px #CD853F;
+        }
+
+        .subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            color: #8B7355;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .divider {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8B4513 20%, #CD853F 50%, #8B4513 80%, transparent);
+            margin: 20px auto;
+            box-shadow: 0 0 8px rgba(205, 133, 63, 0.4);
+        }
+
+        /* Banner Image */
+        .banner {
+            width: 100%;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 35px;
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.4),
+                0 15px 50px rgba(0, 0, 0, 0.9),
+                inset 0 0 30px rgba(0, 0, 0, 0.3);
+            border: 4px solid #000000;
+            border-top: 3px solid #8B4513;
+            border-bottom: 3px solid #654321;
+            position: relative;
+            clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%);
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(139, 69, 19, 0.2) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.1) brightness(0.95) saturate(1.2);
+            position: relative;
+        }
+
+        /* Buttons Section */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px 30px;
+            border-radius: 0;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            clip-path: polygon(3% 0, 97% 0, 100% 10%, 100% 90%, 97% 100%, 3% 100%, 0 90%, 0 10%);
+            box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-iris {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            color: #4A90E2;
+            border: 3px solid #2a3a5a;
+            border-top-color: #4A90E2;
+        }
+
+        .btn-iris:hover {
+            background: linear-gradient(135deg, #2a3a5a 0%, #1a1a2e 100%);
+            border-color: #4A90E2;
+            box-shadow: 
+                0 0 30px rgba(74, 144, 226, 0.6),
+                0 8px 30px rgba(0, 0, 0, 0.9),
+                inset 0 0 20px rgba(74, 144, 226, 0.1);
+            transform: translateY(-3px);
+            color: #6BA3E8;
+        }
+
+        .btn-google {
+            background: linear-gradient(135deg, #1a0f0a 0%, #0f0805 100%);
+            color: #CD853F;
+            border: 3px solid #3d2415;
+            border-top-color: #8B4513;
+        }
+
+        .btn-google:hover {
+            background: linear-gradient(135deg, #3d2415 0%, #1a0f0a 100%);
+            border-color: #CD853F;
+            box-shadow: 
+                0 0 30px rgba(205, 133, 63, 0.5),
+                0 8px 30px rgba(0, 0, 0, 0.9),
+                inset 0 0 20px rgba(205, 133, 63, 0.1);
+            transform: translateY(-3px);
+            color: #DE9A5F;
+        }
+
+        .btn-wifi {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #8B7355;
+            border: 3px solid #2a2a2a;
+            border-top-color: #654321;
+        }
+
+        .btn-wifi:hover {
+            background: linear-gradient(135deg, #2a2a2a 0%, #0f0f0f 100%);
+            border-color: #8B4513;
+            box-shadow: 
+                0 0 30px rgba(139, 69, 19, 0.5),
+                0 8px 30px rgba(0, 0, 0, 0.9),
+                inset 0 0 20px rgba(139, 69, 19, 0.1);
+            transform: translateY(-3px);
+            color: #CD853F;
+        }
+
+        .btn-icon {
+            margin-right: 14px;
+            font-size: 1.4rem;
+            filter: drop-shadow(0 0 4px currentColor);
+        }
+
+        /* WiFi Modal */
+        .wifi-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .wifi-modal.active {
+            display: flex;
+        }
+
+        .wifi-content {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+            padding: 45px 35px;
+            border-radius: 0;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            border: 4px solid #000000;
+            border-top: 3px solid #8B4513;
+            border-bottom: 3px solid #654321;
+            position: relative;
+            box-shadow: 
+                0 0 50px rgba(139, 69, 19, 0.4),
+                0 20px 60px rgba(0, 0, 0, 0.9),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
+            clip-path: polygon(3% 0, 97% 0, 100% 5%, 100% 95%, 97% 100%, 3% 100%, 0 95%, 0 5%);
+        }
+
+        .wifi-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8B4513, #CD853F, #8B4513, #654321);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: borderGlow 3s ease infinite;
+            clip-path: polygon(3% 0, 97% 0, 100% 5%, 100% 95%, 97% 100%, 3% 100%, 0 95%, 0 5%);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #8B4513;
+            color: #CD853F;
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            clip-path: polygon(20% 0, 80% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 80%, 0 20%);
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            border-color: #CD853F;
+            background: rgba(139, 69, 19, 0.3);
+            box-shadow: 0 0 15px rgba(205, 133, 63, 0.5);
+            color: #DE9A5F;
+        }
+
+        .wifi-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.9rem;
+            color: #CD853F;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 
+                0 0 10px rgba(205, 133, 63, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .wifi-qr {
+            width: 260px;
+            height: 260px;
+            margin: 25px auto;
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 0;
+            box-shadow: 
+                0 0 20px rgba(139, 69, 19, 0.4),
+                0 8px 25px rgba(0, 0, 0, 0.8),
+                inset 0 0 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid #000000;
+            border-top: 2px solid #8B4513;
+            border-bottom: 2px solid #654321;
+            clip-path: polygon(5% 0, 95% 0, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0 90%, 0 10%);
+        }
+
+        .wifi-qr img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .wifi-info {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 10, 5, 0.8) 100%);
+            border-radius: 0;
+            border: 2px solid #3d2415;
+            border-top: 1px solid #8B4513;
+            clip-path: polygon(3% 0, 97% 0, 100% 8%, 100% 92%, 97% 100%, 3% 100%, 0 92%, 0 8%);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .wifi-info p {
+            margin: 12px 0;
+            font-size: 1.05rem;
+            color: #8B7355;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        .wifi-info strong {
+            color: #CD853F;
+            display: inline-block;
+            min-width: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(205, 133, 63, 0.3);
+        }
+
+        .wifi-info .wifi-value {
+            color: #DE9A5F;
+            font-family: 'Courier New', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(222, 154, 95, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, #000000 100%);
+            border-top: 3px solid #8B4513;
+            border-bottom: 2px solid #654321;
+            color: #8B7355;
+            font-size: 0.9rem;
+            font-family: 'Rajdhani', sans-serif;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+            box-shadow: 
+                0 -5px 20px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #8B4513 20%, #CD853F 50%, #8B4513 80%, transparent);
+            box-shadow: 0 0 8px rgba(205, 133, 63, 0.4);
+        }
+
+        footer p {
+            margin: 8px 0;
+            letter-spacing: 1px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            color: #CD853F;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            text-shadow: 0 0 8px rgba(205, 133, 63, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.2rem;
+                letter-spacing: 3px;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 4px;
+            }
+
+            .btn {
+                padding: 20px 25px;
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+
+            .btn-icon {
+                font-size: 1.2rem;
+            }
+
+            .header {
+                padding: 35px 20px;
+            }
+
+            .wifi-content {
+                padding: 35px 25px;
+            }
+
+            .wifi-qr {
+                width: 220px;
+                height: 220px;
+            }
+
+            .wifi-title {
+                font-size: 1.6rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .header {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .banner {
+            animation: fadeIn 0.8s ease-out 0.15s forwards;
+            opacity: 0;
+        }
+
+        .buttons {
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+
+        footer {
+            animation: fadeIn 0.8s ease-out 0.45s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            opacity: 0;
+            animation: slideIn 0.6s ease-out forwards;
+        }
+
+        .btn:nth-child(1) {
+            animation-delay: 0.4s;
+        }
+
+        .btn:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .btn:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">Τριχοκοπτειον</div>
+            <div class="divider"></div>
+            <div class="subtitle">Barber Shop</div>
+        </div>
+
+
+        <!-- Action Buttons -->
+        <div class="buttons">
+            <!-- IRIS Payment Button -->
+            <a href="#" class="btn btn-iris" id="irisBtn">
+                <span class="btn-icon">💳</span>
+                <span>Πληρωμή με IRIS</span>
+            </a>
+
+            <!-- Google Reviews Button -->
+            <a href="#" class="btn btn-google" id="googleBtn" target="_blank" rel="noopener noreferrer">
+                <span class="btn-icon">⭐</span>
+                <span>Αξιολόγηση στο Google</span>
+            </a>
+
+            <!-- WiFi Button -->
+            <button class="btn btn-wifi" id="wifiBtn" onclick="openWifiModal()">
+                <span class="btn-icon">📶</span>
+                <span>Σύνδεση Wi-Fi</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- WiFi Modal -->
+    <div class="wifi-modal" id="wifiModal">
+        <div class="wifi-content">
+            <button class="close-modal" onclick="closeWifiModal()">×</button>
+            <div class="wifi-title">📶 Σύνδεση Wi-Fi</div>
+            
+            <!-- QR Code Placeholder -->
+            <div class="wifi-qr">
+                <!-- Replace this with your WiFi QR code image -->
+                <img src="wifi-qr-code.png" alt="WiFi QR Code" id="wifiQrImage">
+            </div>
+
+            <!-- WiFi Credentials -->
+            <div class="wifi-info">
+                <p><strong>SSID:</strong> <span class="wifi-value" id="wifiSSID">TricoKopteion_Guest</span></p>
+                <p><strong>Password:</strong> <span class="wifi-value" id="wifiPassword">********</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-logo">Τριχοκοπτειον</p>
+        <p>&copy; <span id="currentYear"></span> Barber Shop. Όλα τα δικαιώματα διατηρούνται.</p>
+    </footer>
+
+    <script>
+        // Set current year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // WiFi Modal Functions
+        function openWifiModal() {
+            document.getElementById('wifiModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWifiModal() {
+            document.getElementById('wifiModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('wifiModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeWifiModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeWifiModal();
+            }
+        });
+
+        // ============================================
+        // CONFIGURATION SECTION - EDIT THESE VALUES
+        // ============================================
+
+        // 1. IRIS Payment Link
+        const IRIS_LINK = 'https://your-iris-payment-link-here.com';
+        document.getElementById('irisBtn').href = IRIS_LINK;
+
+        // 2. Google Reviews Link
+        const GOOGLE_REVIEW_LINK = 'https://www.google.com/search?sca_esv=6b1d8f50b92f85a4&sxsrf=AE3TifPRCAwxmW5oosnJrSJeZwgJ7SKo7w:1764927732261&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E35wQwELwb9fA64MvDjQGrGyAGPzqCXRa8gON5B5l5lRrH0-Cg0eEEvVY7jPknYec_0CSzzZXLy6GlrDrH91Zh_Exd5zyHAhJccE-qRwo_H4JetkNDNe65AyJBKVroeGEXejDa4rDeFKCuEwzlD9ST9smGKWeWSLny_JzLcZ44Jqcl5FWQ%3D%3D&q=%CE%A4%CF%81%CE%B9%CF%87%CE%BF%CE%BA%CE%BF%CF%80%CF%84%CE%B5%CE%AF%CE%BF%CE%BD+%28%CE%9A%CE%BB%CE%B1%CF%81%CE%BF%CE%BC%CE%AD%CE%BD%CE%BF%CF%82+%CE%92%CE%B1%CF%83%CE%AF%CE%BB%CE%B5%CE%B9%CE%BF%CF%82%29+Reviews&sa=X&ved=2ahUKEwjMjaSUlKaRAxVEgf0HHQz_MtEQ0bkNegQIIRAE&biw=915&bih=566&dpr=1.1';
+        document.getElementById('googleBtn').href = GOOGLE_REVIEW_LINK;
+
+        // 3. WiFi Credentials
+        const WIFI_SSID = 'TricoKopteion_Guest';
+        const WIFI_PASSWORD = 'YourPassword123';
+        
+        document.getElementById('wifiSSID').textContent = WIFI_SSID;
+        document.getElementById('wifiPassword').textContent = WIFI_PASSWORD;
+
+        // 4. WiFi QR Code Image Path
+        // Upload your WiFi QR code image and update this path
+        const WIFI_QR_IMAGE_PATH = 'wifi-qr-code.png';
+        document.getElementById('wifiQrImage').src = WIFI_QR_IMAGE_PATH;
+
+        // ============================================
+        // ALTERNATIVE: Generate WiFi QR Code URL
+        // If you want to generate a QR code dynamically, you can use a service like:
+        // https://api.qrserver.com/v1/create-qr-code/
+        // ============================================
+        
+        // Uncomment this section if you want to generate WiFi QR code automatically
+        /*
+        function generateWifiQR() {
+            const wifiString = `WIFI:T:WPA;S:${WIFI_SSID};P:${WIFI_PASSWORD};;`;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(wifiString)}`;
+            document.getElementById('wifiQrImage').src = qrUrl;
+        }
+        
+        // Call this function on page load
+        generateWifiQR();
+        */
+    </script>
+</body>
+</html>
+
